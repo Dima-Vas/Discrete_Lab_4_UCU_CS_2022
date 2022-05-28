@@ -1,13 +1,15 @@
 """
 Productivity is the key to success in everything, and studying is not an exception.
-As this is the main 
+But none of us are machines - our productivity is based on many of the factors.
+This simple program will show the correlation between the life conditions and productivity.
+And represent my day of course :)
 """
 from numpy import random
-from time import sleep
+# from time import sleep
 
 class MyDay():
     """
-    A class for representing one of my hard days studying at UCU
+    A class representing one of my days studying at UCU
     """
     def __init__(self, factors):
         
@@ -42,7 +44,9 @@ class MyDay():
         return f"My current stance is {self.current_stance}."
     
     def build_day(self, time = "06:00"):
-
+        """
+        The main function of this class
+        """
         if self.current_stance == "sleep":
             if int(time.split(":")[0]) < 23 :
                 if random.randint(0, 3):
@@ -106,15 +110,15 @@ class MyDay():
                 self.productiveness_coefficient += random.randint(-1, 2)/10
             elif "goodmood" in self.factors:
                 self.productiveness_coefficient += 0.2
-            self.hours_studied += 4
+            self.hours_studied += 2
             self.relaxing()
-            time = str((int(time.split(":")[0]) + 4) % 24) + ":00"
-            self.time_passed += 4
+            time = str((int(time.split(":")[0]) + 2) % 24) + ":00"
+            self.time_passed += 2
         if self.time_passed < 18:
-            sleep(3)
+            # sleep(3)
             self.build_day(time)
         else :
-            sleep(3)
+            # sleep(3)
             have_done = "a good job!" if self.productiveness_coefficient > 1 else \
                 "all I could."
             print(f"It's {time} now. Such a hard day it was. I have studied for \
@@ -123,16 +127,19 @@ Now let`s have a nap at all..")
 
 
 def run_my_day():
+    """
+    Runner function
+    """
     factors = event_generator()
     me = MyDay(factors)
     me.build_day()
 
 def event_generator():
     """
-    ["coffee", "sleepy", "deadlines", "exams", "quarrel", "goodmood"]
+    Returns factors giving an influence to the productivity rate.
     """
     output = list(set(random.choice(["coffee", "sleepy", "deadlines",\
-         "exams", "quarrel", "goodmood"], random.randint(1, 6))))
+         "exams", "quarrel"], random.randint(1, 5))))
     return output
 
 if __name__ == "__main__":
